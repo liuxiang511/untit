@@ -1,0 +1,23 @@
+<% if not @wdate_include -%>
+    <script type="text/javascript" src="/javascript/My97DatePicker/WdatePicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/javascript/My97DatePicker/skin/WdatePicker.css"/>
+    <% @wdate_include = true -%>
+<% end -%>
+<%
+   args[:id]||=args[:name]
+   args[:maxlength] = (args[:with_time] ? 16 : 10)
+   if args[:with_time]
+     if args[:for_recall]
+       args[:onClick] = "WdatePicker({startDate:'%y-%M-%d 12:00:00',dateFmt:'yyyy-MM-dd HH:mm'})"
+     else
+       args[:onClick] = "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
+     end
+   else
+     args[:onClick] = "WdatePicker({dateFmt:'yyyy-MM-dd'})"
+   end
+   args[:class] ||= "Wdate"
+   args[:style] ||= "font-family:Arial;height:23px;padding:1px 2px;"
+
+   args[:style] += (args[:with_time] ? "width:130px;" : "width:95px;")
+-%>
+<%= tag "input", args %>

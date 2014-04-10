@@ -1,0 +1,60 @@
+<style>
+    .user_top_bar {
+        background-color: #666666;
+        height: 30px;
+        color: #fff;
+        line-height: 30px;
+        margin: 0;
+        padding: 0;
+    }
+    .user_top_bar span{
+        padding-left: 550px;
+    }
+    .user_top_bar a, .user_top_bar a:visited {
+        color: #ffffff;
+        text-decoration: none;
+    }
+    .user_top_bar a:hover {
+        text-decoration: underline;
+    }
+    .user_top_bar .main_header {
+        margin: 0 auto;
+    }
+</style>
+<div class="user_top_bar">
+  <div class='main_header'>
+    <% if current_user.blank? %>
+        <span style="padding-left: 350px">&nbsp;</span>
+         <span >
+           <%= link_to "登录", '/user/login' %>
+           &nbsp;|&nbsp;
+           <%= link_to "注册", '/user/registers' %>
+           &nbsp;|&nbsp;
+           <%= link_to "帮助", '/user/registers',target: '_blank' %>
+           &nbsp;|&nbsp;
+           <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a>
+           &nbsp;|&nbsp;
+           <%= link_to "高级会员", '/user/registers',target: '_blank' %>
+           &nbsp;&nbsp;
+        </span>
+    <% else %>
+        <span style="padding-left: 200px"><%= current_user.username %>，欢迎您！</span>
+        <span >
+
+          &nbsp;&nbsp;
+          <%= link_to "商务中心",'/firm/firms',target: '_blank'%>
+          &nbsp;|&nbsp;
+          <%= link_to "退出",'/site/logout'%>
+          &nbsp;|&nbsp;
+          <%= link_to "帮助", '/user/registers',target: '_blank' %>
+          &nbsp;|&nbsp;
+          <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a>
+          &nbsp;|&nbsp;
+          <%= link_to "高级会员", '/user/registers',target: '_blank' %>
+          &nbsp;&nbsp;
+        </span>
+    <% end %>
+
+  </div>
+
+</div>

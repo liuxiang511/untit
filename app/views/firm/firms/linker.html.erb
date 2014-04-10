@@ -1,0 +1,84 @@
+
+<div>
+  <div class="f_basic_01">
+    <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+    <span class="f_basic_title">修改联系人信息</span>&nbsp;&nbsp;<span class="f_basic_title">（</span><span style="color: red;font-size: 16px">*</span>&nbsp;<span class="f_basic_title">为必填）</span>
+  </div>
+  <div >
+    <%= form_tag({:action => 'linker_submit'},multipart: true) do %>
+    <table rules=rows border="1" bordercolor="#E6E6E6" >
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;联系人</td>
+        <td class="f_basic_03"><%= text_field_tag 'concat[name]',@concat.present? ? @concat.name : '' ,:style=>"width:260px"%></td></tr>
+      <tr style="background: #F8F8F8">
+        <td class="f_basic_02" style="vertical-align: top;">联系人照片</td>
+        <td class="f_basic_03"><div id="localImag">
+          <%= image_tag @photo.present? ? "/images/user_photo/#{@photo.photo_path}" : '',:id => 'preview',:style => "width: 202px;height: 122px;border: 1px solid #8FBED1"%>
+        </div>
+          <div style="border: 1px solid #CCCCCC;width: 240px;"><input type="file" name="doc" id="doc" class="file" onchange="javascript:setImagePreview();"></div>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;性别</td>
+        <td class="f_basic_03">
+          <%= radio_button_tag 'concat[sex]',1 ,@concat.present? ? @concat.sex==1 ? true :false : false %><span>男</span>
+          <%= radio_button_tag 'concat[sex]',0 ,@concat.present? ? @concat.sex==0 ? true :false : false %><span>女</span>
+        </td></tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;部门</td>
+        <td class="f_basic_03">
+          <%= text_field_tag 'concat[dept]',@concat.present? ? @concat.dept : '' %>
+        </td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;职位</td>
+        <td class="f_basic_03">
+          <%= text_field_tag  'concat[staff]',@concat.present? ? @concat.staff : '' %>
+        </td></tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;固话</td>
+        <td class="f_basic_03">
+          <%= text_field_tag  'concat[phone]',@concat.present? ? @concat.phone : ''  %>
+        </td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;手机</td>
+        <td class="f_basic_03">
+          <%= text_field_tag  'concat[mobile]',@concat.present? ? @concat.mobile : ''  %>
+        </td></tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;传真</td>
+        <td class="f_basic_03">
+          <%= text_field_tag  'concat[fax]',@concat.present? ? @concat.fax : ''  %>
+        </td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;地址</td>
+        <td class="f_basic_03">
+          <%= text_field_tag  'concat[address]',@concat.present? ? @concat.address : ''  %>
+        </td></tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;邮编</td>
+        <td class="f_basic_03">
+          <%= text_field_tag 'concat[post_code]',@concat.present? ? @concat.post_code : ''  %>
+        </td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;邮箱</td>
+        <td class="f_basic_03">
+          <%= text_field_tag 'concat[email]',@concat.present? ? @concat.email : ''  %>
+        </td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;QQ</td>
+        <td class="f_basic_03">
+          <%= text_field_tag 'concat[qq]',@concat.present? ? @concat.qq : ''  %>
+        </td></tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_basic_02"></td>
+        <td class="f_basic_03">
+          <%= submit_tag '确认' %>
+        </td></tr>
+    </table>
+        <% end %>
+  </div>
+</div>
+</div>
+
+<script>
+
+</script>

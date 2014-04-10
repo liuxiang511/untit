@@ -1,0 +1,87 @@
+<style>
+    .input-block-level {
+        width: 180px;
+        height: 28px;
+        padding: 0 0 0 3px;
+        vertical-align: middle;
+    }
+        .login_left{
+            font-size: 15px;
+            color: #3F8CB2;
+        }
+        .login_right{
+            font-size: 14px;
+            color: #ABABAB;
+        }
+        .login_left_div{
+            margin-left: 60px;
+            margin-top: 30px;
+        }
+</style>
+<div style="float: left;width: 470px;margin-top: 60px">
+ <div style="margin-left: 70px;margin-top: 30px;"><span style="color: #3F8CB2;font-size: 21px">&gt 生意地- 做生意的好地方</span></div>
+  <div style="border-bottom: 1px solid #D8D8D8;width: 430px;margin-left: 59px;margin-top: 5px"></div>
+ <div class="login_left_div"><img src='/images/notice/y.gif' alt='正确'><span class="login_left">做生意</span><span class="login_right">进驻生意地，打开电子商务之门</span></div>
+  <div class="login_left_div"><img src='/images/notice/y.gif' alt='正确'><span class="login_left">做生意</span><span class="login_right">进驻生意地，打开电子商务之门</span></div>
+  <div class="login_left_div"><img src='/images/notice/y.gif' alt='正确'><span class="login_left">做生意</span><span class="login_right">进驻生意地，打开电子商务之门</span></div>
+  <div class="login_left_div"><img src='/images/notice/y.gif' alt='正确'><span class="login_left">做生意</span><span class="login_right">进驻生意地，打开电子商务之门</span></div>
+</div>
+<div style="float: right;border: 1px solid #D8D8D8;border-radius:10px;width: 400px;margin-top: 40px;margin-right: 60px ">
+  <div style="vertical-align:middle;margin:15px auto "><span style="font-size: 15px;color: #454545;">&nbsp;&nbsp;您好，欢迎登陆</span></div>
+  <div style="border-bottom: 1px solid #D8D8D8;"></div>
+  <div style="margin-top: 60px">
+  <%=form_tag({:controller => '/user/login/',:action => 'login'}) do %>
+        <div style="margin-left: 50px"><span style="color: #444444">用户名</span>&nbsp;&nbsp;&nbsp;&nbsp;<%= text_field_tag :username, nil, :class => 'input-block-level', :placeholder => '请输入用户名/Email'%></div>
+        <div style="margin-left: 55px;margin-top: 20px"><span style="color: #444444">密码</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= password_field_tag :password, nil,:class => 'input-block-level',:placeholder => '请输入密码' -%></div>
+        <div style="padding-left: 85px;margin-top: 30px"><%= link_to_function image_tag('/images/login_ms.gif', :alt => '登录'),"login_in(this)"-%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to image_tag('/images/login_zc.gif', :alt => '注册'),'/user/registers'-%></div>
+  <% end %>
+  </div>
+  <div style="margin: 40px;color: #444444">如果您有任何问题，请及时拨打电话0110010101咨询</div>
+</div>
+<div style="clear: both"></div>
+<script type="text/javascript">
+    $(function(){
+        var name_txt = $('#username').attr('name');
+        var cookie_user_name = getCookie(name_txt);
+        if (cookie_user_name == undefined || cookie_user_name == '') {
+            delCookie(name_txt);
+//            $('#remember_me').prop('checked', false);
+            return false;
+        } else {
+            $('#username').val(cookie_user_name);
+//            $('#remember_me').prop('checked', true);
+        }
+    });
+
+    function login_in(obj){
+        var cookie_name = $("#username").attr('name')
+        var cookie_value = $("#username").val()
+        set_cookie(cookie_name,cookie_value)
+        $(obj).parents('form').submit()
+    }
+    function set_cookie(name,value){
+        var during_time = 30
+        var exp = new Date()
+        exp.setTime(exp.getTime()+during_time*24*60*60*1000)
+        document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString();
+    }
+    function delCookie(name){
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval=getCookie(name);
+        if(cval!=null) {
+            document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+        }
+    }
+    function getCookie(name) {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg)) {
+            return unescape(arr[2]);
+        }
+        else {
+            return null;
+        }
+    }
+
+</script>

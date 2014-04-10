@@ -1,0 +1,46 @@
+<style>
+    .new_honor{
+        text-decoration: none;
+        font-size: 14px;
+        color: #B9650B;
+    }
+    .new_honor:hover{
+        text-decoration: underline;
+        vertical-align: middle;
+        line-height: 39px;
+    }
+</style>
+<div>
+  <div class="f_basic_01">
+    <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+    <span class="f_basic_title">收件箱</span>&nbsp;&nbsp;
+  </div>
+  <div>
+    <table rules=rows border="1" bordercolor="#E6E6E6" style="font-size: 13px;width: 1160px">
+      <tr style="background: url('/images/firm/f_09.jpg') repeat-x;height: 35px;font-weight: bold;color: #545454">
+        <td style="text-align: center;width: 180px">发件人</td>
+        <td style="width: 260px">标题</td>
+        <td style="width: 300px">留言时间</td>
+        <td>内容</td>
+        <td>操作</td>
+      </tr>
+      <% if @message.present? %>
+          <% @message.each do |t| %>
+          <tr>
+            <td><%= t.concat %></td>
+            <td><%= t.title %></td>
+            <td><%= t.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td><%= t.content %></td>
+            <td><%= link_to_function '明细','' %>&nbsp;&nbsp;<%= link_to_function '删除','' %></td>
+          </tr>
+          <% end %>
+      <% end %>
+    </table>
+    <div>
+      ""
+    </div>
+
+  </div>
+
+</div>
+</div>

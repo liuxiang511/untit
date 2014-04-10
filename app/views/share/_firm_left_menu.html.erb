@@ -1,0 +1,179 @@
+<style>
+  .left_menu_1{
+      background: url('/images/firm/f_02.jpg') no-repeat;
+      height: 32px;
+      width: 200px;
+      font-size: 14px;
+      color: #777777;
+      font-weight: bold;
+      line-height: 32px;
+  }
+  .left_menu_1 span{
+      padding-left: 55px;
+  }
+  .left_menu_2{
+      background:url("/images/firm/f_07.jpg") no-repeat ;
+      margin-left: 35px;
+      margin-top: 10px;
+
+  }
+  .left_menu_2 a {
+      text-decoration: none;
+      font-size: 12px;
+      color: #525252;
+      margin: 0px 0px 0px 15px;
+  }
+  .left_menu_2 a:hover{
+      text-decoration: underline;
+      font-size: 12px;
+      color: #CD5700;
+  }
+
+  .left_menu_4{
+      float: left;
+      height: 220px;
+      width: 188px;
+      background:url("/images/firm/f_08.jpg") repeat-x ;
+  }
+  .left_menu_5{
+      float: right;
+      height: 219px;
+      background-color: #F2F2F2;
+      width: 10px;
+      border-left: 1px solid #CECECE;
+      border-bottom: 1px solid #CECECE;
+  }
+  .left_menu_3{
+      width: 199px;
+      display: none;
+  }
+  .left_menu_0{
+      background: url('/images/firm/f_05.jpg') no-repeat;
+      height: 32px;
+      width: 199px;
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: bold;
+      line-height: 32px;
+  }
+  .left_menu_0 span{
+      padding-left: 55px;
+  }
+</style>
+<div style="border-right: 1px solid #CECECE;float: left">
+  <div class="left_menu_0"><span>商务中心首页</span></div>
+  <% i_url = params[:action]!='index' ? "/"+"#{params[:controller]}"+"/"+"#{params[:action]}" : "/"+"#{params[:controller]}" %>
+  <%= hidden_field_tag 'url_path',i_url %>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>基本资料</span></div>
+  <div class="left_menu_3" style="display: block">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '公司信息','/firm/firms' %></div>
+      <div class="left_menu_2"><%= link_to '公司描述','/firm/firms/desc' %></div>
+      <div class="left_menu_2"><%= link_to '联系人信息','/firm/firms/linker' %></div>
+      <div class="left_menu_2"><%= link_to '公司详细信息','/firm/firms/detail' %></div>
+      <div class="left_menu_2"><%= link_to '公司荣誉','/firm/firms/honor' %></div>
+      <div class="left_menu_2"><%= link_to '修改密码','/firm/firms/reset_pass' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>供应信息</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '自定义产品分类','/firm/products/category' %></div>
+      <div class="left_menu_2"><%= link_to '产品发布','/firm/products/publish' %></div>
+      <div class="left_menu_2"><%= link_to '产品管理','/firm/products/manage'%></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>采购信息</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '精确查询','/firm/purchases/info_search' %></div>
+      <div class="left_menu_2"><%= link_to '信息统计','/firm/purchases/info_static' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <a href="/firm/home" target="_blank" style="text-decoration: none"><div class="left_menu_1"><span>我的商铺</span></div></a>
+
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>商铺管理</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '友情链接','/firm/shops/link' %></div>
+      <div class="left_menu_2"><%= link_to '相册管理','/firm/shops/album' %></div>
+      <div class="left_menu_2"><%= link_to '图片管理','/firm/shops/picture' %></div>
+      <div class="left_menu_2"><%= link_to '公司动态','/firm/shops/dynamic' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>诚信验证</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '企业资料认证','/firm/honesties' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>留言管理</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '收件箱','/firm/messages/inbox' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>推广服务</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="left_menu_1" onclick="menu_change(1,this)"><span>基本资料</span></div>
+  <div class="left_menu_3">
+    <div class="left_menu_4">
+      <div style="height: 12px"></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+      <div class="left_menu_2"><%= link_to '公司信息','' %></div>
+    </div>
+    <div class="left_menu_5"></div>
+    <div style="clear: both"></div>
+  </div>
+</div>
+<div style="float: right;background: #EEEEEE;width: 3px;height:553px;border-right: 1px solid #CECECE">&nbsp;</div>
+<div style="clear: both"></div>
+<script type="text/javascript">
+    $(function(){
+        var url = $("#url_path").val()
+        if (url != ''){
+            $("a[href='"+url+"']").parents(".left_menu_3").prevAll('.left_menu_3').hide();
+            $("a[href='"+url+"']").parents(".left_menu_3").nextAll('.left_menu_3').hide();
+            $("a[href='"+url+"']").parents(".left_menu_3").show();
+        }
+    })
+  function menu_change(rank , obj){
+      if (rank ==2){
+          window.location = '/firm/home'
+      }else{
+          $(obj).prevAll('.left_menu_3').hide();
+          $(obj).nextAll('.left_menu_3').hide();
+          $(obj).next('div').show();
+      }
+
+  }
+</script>

@@ -1,0 +1,31 @@
+<div class="user_top_bar">
+  <div class='main_header'>
+    <% if current_user.blank? %>
+        <span >
+          <%= link_to "个人服务", :controller => :site, :action => :personal_service %>
+          &nbsp;&nbsp;
+          <%= link_to "企业服务", :controller => :site, :action => :ent_service %>
+          &nbsp;&nbsp;
+          <%= link_to "登录", '/users/login' %>
+          &nbsp;&nbsp;
+          <%= link_to "注册", '/users/registers' %>
+          &nbsp;&nbsp;
+        </span>
+    <% else %>
+        <span >
+          <%= current_user.username %>，欢迎登录RCC建筑人才网
+        </span>
+        <% if current_user.respond_to? :firm_id %>
+            &nbsp;<%= link_to '使用帮助', '/site/firm_help',:target => "_blank" %> &nbsp;
+        <% end %>
+    <% end %>
+
+
+    <% if show_back_main_page(params[:controller], params[:action]) %>
+        <%= link_to '返回首页', '/site' %>&nbsp;&nbsp;
+    <% end %>
+    <%= link_to '退出', '/users/logout' unless current_user.blank? %> &nbsp;&nbsp;
+    <!--<label style="float: right;width: 500px; margin-right: 40px;">中国建筑教育协会唯一指定招聘信息发布平台</label>-->
+    <!--<label style="float: right;width: 500px; margin-right: 40px;">系统正在测试中，将于11月1日正式上线！</label>-->
+  </div>
+</div>

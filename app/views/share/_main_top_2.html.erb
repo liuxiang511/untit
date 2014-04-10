@@ -1,0 +1,97 @@
+<style>
+  .main_top_2_1{
+      margin-top: 40px;
+  }
+  .main_top_2_2{
+      margin: 0 auto;
+      float: left;
+  }
+  .main_top_2_3{
+      border:solid 2px #E5E5E5;
+      float: right;
+  }
+    .main_top_2_4{
+        padding-top: 20px
+    }
+    .main_button_tag{
+        cursor: pointer;
+        border: solid 0px #CCC;
+        height: 29px!important;
+        height: 29px;
+        _height: 29px;
+        width: 67px;
+        background-color: #FF7F00;
+        line-height: 28px;
+        text-align: center;
+        color: white;
+        font-family: Microsoft YaHei;
+        font-size: 16px;
+    }
+    .main_input_tag{
+        padding: 0px;
+        border: 0px;
+        vertical-align: top;
+        width: 337px;
+        _width: 333px;
+        height: 26px;
+        font-size: 14px;
+        color: #999;
+        text-indent: 5px;
+        line-height: 29px;
+    }
+  .main_top_menu{
+      width: 86px;
+      text-align: center;
+      background-image: url('/images/temp-04.jpg');
+      background-repeat: no-repeat;
+      background-position: 0px 10px;
+      height: 37px;
+      float: left;
+      display: block;
+      line-height: 37px;
+      color: white;
+      font-family: Microsoft YaHei;
+      font-weight: bold;
+      font-size: 16px;
+      word-spacing: 5px;
+      text-decoration: none;
+  }
+  .main_top_1{
+      background: #FF7E00;
+      height: 37px
+  }
+  .main_top_1 a :visited{
+      background-color: #F60;
+  }
+</style>
+<div class="main_top_2_1">
+  <div class="main_top_2_2">
+    <%= link_to image_tag('temp-02.jpg', :alt => 'RCC建筑人才网'),
+                'http://www.archrcc.com', :title => 'RCC建筑人才网' -%>
+  </div>
+
+  <div class="main_top_2_3">
+    <div> <%= select_tag "user_source", options_for_select([["产品", '1']]+[["公司",'2']]+[["求购",'3']]), :style => "width: 78px;font-size: 16px;color:#666;font-family: 微软雅黑;border:0" %>
+      <%= text_field_tag "finder[name]", '',:class => 'main_input_tag', :placeholder => "输入搜索器名称"%>
+      <%= button_to_function '搜索',"",:class => 'main_button_tag' %>
+    </div>
+
+  </div>
+  <div style="clear: both"></div>
+</div>
+
+<div class="main_top_2_4">
+  <div class="main_top_1">
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+    <%= link_to '首页','', :class => 'main_top_menu' %>
+  </div>
+</div>

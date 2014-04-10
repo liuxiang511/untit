@@ -1,0 +1,245 @@
+<style>
+    .a_tag{
+        padding-left: 10px;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 39px;
+    }
+    .f_basic_03 span{
+        display: none;
+    }
+</style>
+<div class="f_basic_01" >
+  <%= link_to_function '①选择类目、填写标题','step_change(this,1)',:class => "a_tag",:id => "menu_step_1", :style => "color:#FF9900" %>&nbsp;&nbsp;
+  <%= link_to_function '②填写内容','step_change(this,2)',:class => "a_tag", :id => "menu_step_2" %>&nbsp;&nbsp;
+  <%= link_to_function '③发布成功','step_change(this,3)',:class => "a_tag", :id => "menu_step_3" %>
+</div>
+<%= form_tag({:action => "product_publish"},multipart: true) do  %>
+    <div style="" id="step_1">
+      <table rules=rows border="1" bordercolor="#E6E6E6" >
+        <tr style="background: #FCFCFC;">
+          <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;友情提示：</td>
+          <td class="f_basic_03">应国家网络监察机关的要求，也为了更好地
+            保障您的利益，请勿发布不符合规范、敏感的信息和图片，如<br>
+            有发现会立即删除账号和信息，不会另行提示或通知，生意地感谢您的配合！</td></tr>
+        <tr style="background: #F8F8F8">
+          <td class="f_basic_02" style="vertical-align: top;">发布规则 ：</td>
+          <td class="f_basic_03">1、标题为单一的产品名称，不能加过多的无关修饰词。<br>
+            2、标题、内容里不能包含： 公司名称、公司介绍、主营产品、联系方式，联系方式包括：联系人、电话、手机、邮箱、QQ、网址等。<br>
+            3、标题和内容必须通顺、合乎逻辑，不能刻意包含特殊字符。<br>
+            4、标题和内容不能重复。 产品名称相同，地区不同的标题属于重复
+            信息； 刻意多次重复关键字属于重复； 内容里超过80%一致，属于重复内容。
+          </td>
+        </tr>
+        <tr style="background: #FCFCFC;">
+          <td class="f_basic_02" style=" vertical-align:top;padding-top:20px"><span style="color: red">*</span>&nbsp;&nbsp;产品分类</td>
+          <td class="f_basic_03" style="padding-top: 20px">
+            <%= select_tag 'cate_step_1', options_for_select((get_category_step('1'))),:onchange => "cate_change(this,'cate_step_2')",:size => 8,:style => "width:100px" %>
+            <%= select_tag 'cate_step_2','',:onchange => "cate_change(this,'product_category_id')",:size => 8,:style => "width:100px;display: none" %>
+            <%= select_tag 'product[category_id]','',:onchange => "cate_change(this,'')",:size => 8,:style => "width:100px;display:none" %>
+          </td></tr>
+        <tr style="background: #F8F8F8">
+          <td class="f_basic_02" >产品名称：</td>
+          <td class="f_basic_03"><%= text_field_tag 'product[name]','' %></td>
+        </tr>
+        <tr style="background: #F8F8F8">
+          <td class="f_basic_02" >所选分类：</td>
+          <td class="f_basic_03"><span id="cate_1"></span><span id="cate_2"></span><span id="cate_3"></span></td>
+        </tr>
+        <tr style="background: #F8F8F8">
+          <td class="f_basic_02" ></td>
+          <td class="f_basic_03"><%= button_to_function '下一步','step_next()' %></td>
+        </tr>
+      </table>
+    </div>
+    <div style="display: none;margin-left: 50px" id="step_2">
+      <table>
+        <tr><td>自定义产品分类</td>
+          <td><%= select_tag 'product[firm_category_id]', options_for_select(([['请选择', '']] + get_firm_category())),:style=> "width:150px" %></td></tr>
+        <tr><td>信息标题</td><td colspan="3"><%= text_field_tag 'product[title]' %></td></tr>
+        <tr><td>产品数量</td><td><%= text_field_tag 'product[sum_count]' %></td><td>包装说明</td><td><%= text_field_tag 'product[package_info]' %></td></tr>
+        <tr><td>产品规格</td><td><%= text_field_tag 'product[special]' %></td><td>包装价格</td><td><%= text_field_tag 'product[package_price]' %></td></tr>
+        <tr><td>订购说明</td><td colspan="3"><%= text_area_tag 'product[order_info]','',size: "70x3" %></td></tr>
+        <tr><td>批发说明</td><td colspan="3"><%= text_area_tag 'product[batch_info]','',size: "70x3" %></td></tr>
+        <tr><td>交易流程</td><td colspan="3"><%= text_area_tag  'product[trade]','',size: "70x3" %></td></tr>
+        <tr><td>售后服务</td><td colspan="3"><%= text_area_tag 'product[after_sale]','',size: "70x3" %></td></tr>
+        <tr><td>最小起订量</td><td colspan="3"><%= text_area_tag'product[min_order]','',size: "70x3" %></td></tr>
+        <tr><td></td>
+          <td colspan="3">
+            <table style="line-height: 30px;border: 1px solid">
+              <tr style="background-color: #D4D0C8">
+                <td style="text-align: center;font-weight: bold;width:80px">计量单位</td>
+                <td style="text-align: center;font-weight: bold">购买数量</td>
+                <td style="text-align: center;font-weight: bold;width:180px">产品单价</td></tr>
+              <tr style="height: 40px">
+                <td style="text-align: center"><%= text_field_tag'product_calculate[ceil]','',:style => "width:50px",:onblur =>"get_ceil(this)"%></td>
+                <td style="text-align: center">购买<%= text_field_tag'product_calculate[count]','',:style => "width:50px" %></td>
+                <td style="text-align: center">
+              <span id="per" style="width: 90px">及以上：<%=text_field_tag 'product_calculate[price]','',:style => "width:50px",:onblur => "ceil_add(this)"%>元/每单位</span>
+                </td></tr>
+              <tr>
+
+                <td colspan="3" id="ceil"></td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
+        <tr><td>*内容编辑</td><td colspan="3"> <%= text_area_tag 'product[content]','', :style => "width: 100%; height: 400px;"%></td></tr>
+        <tr><td colspan="4">温馨提示：<br>
+          1、多图展示，让客户更了解您的产品，提高销量的法宝.<br>
+          2、请尽量上传清晰的图片.<br>
+          3、上传的单张图片大小不能超过256KB.<br>
+        </td></tr>
+        <tr><td>图片</td>
+          <td>
+            <div id="localImag" style="background: url('/images/firm/pro_default.jpg') no-repeat;width: 500px;height:141px">
+              <div style="height: 120px">
+                <%= image_tag  '',:id => 'preview1'%>
+                <%= image_tag  '',:id => 'preview2',style: "padding-left:37px"%>
+                <%= image_tag  '',:id => 'preview3',style: "padding-left:35px"%>
+              </div>
+              <div>
+                <div id="pre_oper1" style="float: left;width:140px;text-align: center;display: none"><%= link_to_function '预览','' ,:style => "color:blue"%>&nbsp;&nbsp;<%= link_to_function '删除','',:style => "color:blue" %></div>
+                <div id="pre_oper2" style="float: left;width:140px;text-align: center;display: none;padding-left:37px"><%=link_to_function '预览','',:style => "color:blue" %>&nbsp;&nbsp;<%=link_to_function '删除','',:style => "color:blue" %></div>
+                <div id="pre_oper3" style="float: left;width:140px;text-align: center;display: none;padding-left:35px"><%=link_to_function '预览','',:style => "color:blue" %>&nbsp;&nbsp;<%=link_to_function '删除','',:style => "color:blue" %></div>
+                <div style="clear: both"></div>
+              </div>
+              <div style="clear: both"></div>
+            </div>
+
+            <div style="padding-top:5px">
+              <span>1</span><input type="file" name="doc[1]" id="doc[1]" width="120" height="30" onchange="javascript:setPatchImagePreview('140px','120px','1');"><br>
+              <span>2</span><input type="file" name="doc[2]" id="doc[2]" width="120" height="30" onchange="javascript:setPatchImagePreview('140px','120px','2');"><br>
+              <span>3</span><input type="file" name="doc[3]" id="doc[3]" width="120" height="30" onchange="javascript:setPatchImagePreview('140px','120px','3');">
+            </div>
+          </td></tr>
+        <tr style="background: #F8F8F8;">
+          <td ></td>
+          <td  colspan="2">
+            <%= submit_tag '确认' %>
+          </td></tr>
+      </table>
+
+      <div>
+        <table>
+          <tr ><td rowspan="5"></td><td></td></tr>
+          <tr ></td><td></td></tr>
+          <tr ><td></td></tr>
+          <tr ></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+<% end %>
+<script type="text/javascript">
+    function setPatchImagePreview(width,height,type) {
+        if(type == '1'){
+            var docObj=document.getElementById("doc[1]");
+            var imgObjPreview=document.getElementById("preview1");
+        }
+        if(type == '2'){
+            var docObj=document.getElementById("doc[2]");
+            var imgObjPreview=document.getElementById("preview2");
+        }
+        if(type == '3'){
+            var docObj=document.getElementById("doc[3]");
+            var imgObjPreview=document.getElementById("preview3");
+        }
+        if(docObj.files && docObj.files[0]){
+//火狐下，直接设img属性
+            imgObjPreview.style.display = 'inline';
+            imgObjPreview.style.width = width;
+            imgObjPreview.style.height = height;
+//imgObjPreview.src = docObj.files[0].getAsDataURL();
+//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+        }else{
+//IE下，使用滤镜
+            docObj.select();
+            var imgSrc = document.selection.createRange().text;
+            var localImagId = document.getElementById("localImag");
+//必须设置初始大小
+            localImagId.style.width = "250px";
+            localImagId.style.height = "200px";
+//图片异常的捕捉，防止用户修改后缀来伪造图片
+            try{
+
+                localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+            }catch(e){
+                alert("您上传的图片格式不正确，请重新选择!");
+                return false;
+            }
+            imgObjPreview.style.display = 'none';
+            document.selection.empty();
+        }
+
+        return true;
+    }
+    function cate_change(obj,step){
+        var cate_id = $(obj).val();
+        if (step != ''){
+            $('#' + step.toString()).load('/firm/firms/get_category_options?cate_id=' + cate_id.toString());
+            $("#"+ step.toString()).attr('size',8)
+            $("#"+ step.toString()).show()
+        }
+        if (step == 'cate_step_2'){
+            var name = $("option[value="+cate_id+"]").html()
+            $("span[id=cate_1]").empty()
+            $("span[id=cate_1]").append(name)
+            $("span[id=cate_1]").show()
+            $("span[id=cate_2]").empty()
+            $("span[id=cate_3]").empty()
+        }else if (step == 'product_category_id'){
+            var name = $("option[value="+cate_id+"]").html()
+            $("span[id=cate_2]").empty()
+            $("span[id=cate_2]").append("&nbsp;>&nbsp;"+name)
+            $("span[id=cate_2]").show()
+            $("span[id=cate_3]").empty()
+        }else{
+            var name = $("option[value="+cate_id+"]").html()
+            $("span[id=cate_3]").empty()
+            $("span[id=cate_3]").append("&nbsp;>&nbsp;"+name)
+            $("span[id=cate_3]").show()
+        }
+    }
+    function step_next(){
+        $("#step_1").hide()
+        $("#menu_step_1").css('color','')
+        $("#menu_step_2").css('color','#FF9900')
+        $("#step_2").show()
+    }
+    function get_ceil(obj){
+        var ceil = $(obj).val()
+        $("span [id=per]").after("/"+ceil)
+    }
+    function ceil_add(obj){
+        var ceil = $(obj).parents('td').prev().prev().find('input').val()
+        var count = $(obj).parents('td').prev().find('input').val()
+        var price = $(obj).val()
+        $("#ceil").after("<span>>"+count+ceil+"</span><span>"+price+"元/"+ceil+"</span><br>")
+    }
+
+
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#product_content',
+                {items: [
+                    'source', '|', 'undo', 'redo', '|', 'preview',
+                    'print', 'template', 'code', 'cut', 'copy', 'paste',
+                    'plainpaste', 'wordpaste', '|', 'justifyleft',
+                    'justifycenter', 'justifyright',
+                    'justifyfull', 'insertorderedlist',
+                    'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                    'superscript', 'clearhtml', 'quickformat',
+                    'selectall', '|', 'fullscreen', '/',
+                    'formatblock', 'fontname', 'fontsize', '|',
+                    'forecolor', 'hilitecolor', 'bold',
+                    'italic', 'underline', 'strikethrough',
+                    'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                    'flash', 'media', 'insertfile', 'table', 'hr',
+                    'emoticons', 'baidumap', 'pagebreak',
+                    'anchor', 'link', 'unlink', '|', 'about'
+                ]});
+    });
+
+</script>

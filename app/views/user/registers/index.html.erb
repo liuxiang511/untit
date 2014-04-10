@@ -1,0 +1,384 @@
+
+<style type="text/css">
+    .reg_container {
+        width: 825px;
+        margin: auto;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .reg_container .c_header {
+        background-color: #d8e4f0;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+        margin: 1px;
+        padding: 7px;
+    }
+    .reg_container .send_info {
+        margin: 40px 0 40px 140px;
+    }
+
+    .reg_btn {
+        width: 133px;
+        height: 28px;
+        border: 0px;
+        margin-top: 10px;
+        background-image: url('/images/btn_05.png');
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    table tr td {
+        padding: 5px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #666;
+        font-weight: normal;
+    }
+    table tr td input[type=text]{
+        width: 150px;
+        height: 20px;
+    }
+    .im{
+
+    }
+</style>
+<div style='width:828px;margin:auto;padding:25px 0 35px 0;'>
+  <div class="reg_container">
+
+    <div class="c_header">会员注册</div>
+    <div style="padding-left: 265px;padding-top: 20px;padding-bottom: 10px;color: #666;">
+      <span>注册类型</span>&nbsp;&nbsp;&nbsp;&nbsp;
+      <%=radio_button_tag 'user_type','firm',true , :onclick => "type_change('firm')"%><span style="font-size: 14px">供货商</span>
+      <%=radio_button_tag 'user_type','user',false, :onclick => "type_change('user')"%><span style="font-size: 14px">采购商</span>
+      <%= hidden_field_tag 'validate_result' %>
+    </div>
+    <!--企业注册开始-->
+    <div id="firm_div" style="padding-left: 200px;">
+      <%=form_tag 'user/registers/create' do  %>
+        <%= hidden_field_tag 'firm_type','firm' %>
+        <table class='form_table' cellpadding='0' cellspacing='0'>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>用户名</td>
+            <td class="span6 td_info" id='firm_username_td' >
+              <%= text_field_tag 'firm_username', '', :style => "width: 200px", :onblur => "validate_username()" ,:onfocus=> "remove_notice(this)",:placeholder => '  6-20位字母、数字或下划线' %>
+              </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>密码</td>
+            <td class="span6 td_info" id='firm_pass_td'>
+              <%= password_field_tag 'firm_password', '', :onblur => "validate_password()" ,:onfocus=> "remove_notice(this)",:style => "width: 200px" ,:placeholder => '  至少6位英文字母或数字'%>
+            </td></tr>
+          <tr><td class="span3 td_title" ><span style="color: red">*</span>确认密码</td>
+            <td class="span6 td_info" id='firm_pass_ag_td'>
+              <%= password_field_tag 'firm_password_ag', '', :style => "width: 200px",:onfocus=> "remove_notice(this)", :onblur => "validate_confirm_pw()", :placeholder => '  再次输入密码'%>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>电子邮箱</td>
+            <td class="span6 td_info" id='firm_email_td'>
+              <%= text_field_tag 'firm_email', '', :style => "width: 200px", :onblur => "validate_email()",:onfocus=> "remove_notice(this)", :placeholder => '  请输入您常用的电子邮箱' %>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>公司名称</td>
+            <td class="span6 td_info" id="firm_name_td">
+              <%= text_field_tag 'firm_name', '', :style => "width: 200px",:onblur => "validate_firm_name()",:onfocus=> "remove_notice(this)", :placeholder => '  请输入您的公司名称'  %>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>联系人</td>
+            <td class="span6 td_info" id="firm_concat_td">
+              <%= text_field_tag 'firm_link_man', '', :style => "width: 200px",:onblur => "validate_concat()",:onfocus=> "remove_notice(this)", :placeholder => '  请输入公司联系人' %>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>手机</td>
+            <td class="span6 td_info" id='firm_mobile_td'>
+              <%= text_field_tag 'firm_mobile', '', :style => "width: 200px",:onblur => "validate_mobile()",:onfocus=> "remove_notice(this)", :placeholder => '  请输入联系人手机' %>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>座机</td>
+            <td class="span6 td_info" id='firm_phone_td'>
+              <%= text_field_tag 'firm_phone', '', :style => "width: 200px",:onblur => "validate_phone()",:onfocus=> "remove_notice(this)", :placeholder => '  请输入公司固话' %>
+            </td></tr>
+          <tr><td class="span3 td_title"></td>
+            <td class="span6 td_info">
+              <%= button_to_function '注 册','', :class => "reg_btn",:onclick => "to_register(this)",:id=>"this_i" %>
+            </td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td colspan="2" style="text-align: center;">
+            <span>点击 “注册” 表示您已经同意并愿意遵守RCC建筑人才网的<%= link_to '用户协议', '/site/user_agreement', :target => '_blank' %> </span>
+          </td></tr>
+        </table>
+      <% end  %>
+    </div>
+
+    <!--企业注册结束-->
+    <!--个人注册开始-->
+    <div  id="user_div" style="padding-left: 200px;display: none">
+      <%= form_tag 'user/registers/create' do %>
+        <%= hidden_field_tag 'user_type_hide','user' %>
+        <table class='form_table' cellpadding='0' cellspacing='0'>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>用户名</td>
+            <td class="span6 td_info" id='user_username_td'>
+              <%= text_field_tag 'username', '', :style => "width: 200px", :onblur => "validate_username()" ,:onfocus=> "remove_notice(this)",:placeholder => '  6-20位字母、数字或下划线' %>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>密码</td>
+            <td class="span6 td_info" id='user_pass_td'>
+              <%= password_field_tag 'password', '', :onblur => "validate_password()" ,:style => "width: 200px" ,:onfocus=> "remove_notice(this)",:placeholder => '  至少6位英文字母或数字'%>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>确认密码</td>
+            <td class="span6 td_info" id="user_pass_ag_td">
+              <%= password_field_tag 'password_ag', '', :style => "width: 200px", :onblur => "validate_confirm_pw()",:onfocus=> "remove_notice(this)", :placeholder => '  再次输入密码'%>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>电子邮箱</td>
+            <td class="span6 td_info" id="user_email_td">
+              <%= text_field_tag 'email', '', :style => "width: 200px", :onblur => "validate_email()",:onfocus=> "remove_notice(this)", :placeholder => '  请输入您常用的电子邮箱' %>
+            </td></tr>
+          <tr><td class="span3 td_title"><span style="color: red">*</span>联系电话</td>
+            <td class="span6 td_info" id='user_mobile_td'>
+              <%= text_field_tag 'mobile', '', :style => "width: 200px", :placeholder => '  请填写联系电话' %>
+            </td></tr>
+          <tr><td class="span3 td_title"></td>
+            <td class="span6 td_info">
+              <%= button_to_function '注 册','', :class => "reg_btn",:onclick => "to_register(this)" %>
+            </td></tr>
+          <tr><td colspan="2" style="text-align: center;">
+            <span>点击 “注册” 表示您已经同意并愿意遵守RCC建筑人才网的<%= link_to '用户协议', '/site/user_agreement', :target => '_blank' %> </span>
+          </td></tr>
+        </table>
+      <% end  %>
+    </div>
+    <!--个人注册结束-->
+</div>
+</div>
+<!--<%= render :partial => 'common/alert_msg' %>-->
+
+<script type="text/javascript">
+  function to_register(obj){
+      if (validate_user()){
+          var data = $(obj).parents('form').serialize()
+          $.ajax({
+              url: '/user/registers/create',
+              data: data,
+              dataType: 'json',
+              success:function(data){
+                 if(data.success){
+                     alert("恭喜你！创建账号成功！")
+                     $(obj).parents('form').find('input[type=text]').val('')
+                     $(obj).parents('form').find('input[type=password]').val('')
+                     $(".im").remove()
+                 }
+              }
+          })
+      }
+  }
+  function type_change(type){
+      if (type == 'firm'){
+          $("#firm_div").show();
+          $("#user_div").hide()
+      }
+      if (type == 'user'){
+          $("#user_div").show();
+          $("#firm_div").hide()
+      }
+  }
+  function validate_user(){
+      $(".im").remove()
+      var ve = validate_email();
+      var vu = validate_username()
+      var vp = validate_password()
+      var vg = validate_confirm_pw()
+      var vl = ve && vu && vp && vg
+      var type  = $("input[name='user_type']:checked").val()
+      if (type=='firm'){
+          var vf = validate_firm_name() && vl;
+          var vc = validate_concat() && vf;
+          var vm = validate_mobile() && vc
+          var vs = validate_phone() && vm;
+          return vs
+
+      }else{
+          var vm = validate_mobile() && vl
+          return vm
+      }
+  }
+  //图片展示type=1正确，-1错误，0正在检测
+  function ShowPic(type, lblobj, message) {
+      if (type == "1") {
+          $("td[id='"+lblobj+"']").append("<img src='/images/notice/y.gif' alt='正确' class='im'><span class='im'>" + message+"</span>");
+      } else if (type == "-1") {
+          $("td[id='"+lblobj+"']").append("<img src='/images/notice/x.gif' alt='错误' class='im'><span class='im'>" + message+"</span>");
+      } else {
+          $("td[id='"+lblobj+"']").append("<img src='/images/notice/loading.gif' alt='正确' class='im'><span class='im'>" + message+"</span>");
+      }
+  }
+  //清除提示
+  function remove_notice(obj){
+      $(obj).nextAll().remove()
+  }
+    //验证用户名
+  function validate_username(){
+      var type  = $("input[name='user_type']:checked").val()
+      var obj = type == 'firm' ? $("#firm_username").val() : $("#username").val()
+      var tar = type == 'firm' ? 'firm_username_td' : 'user_username_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "用户名不能为空");
+      }else if(obj.length < 6){
+          ShowPic(-1, tar, "用户名长度不能小于6");
+      }else if(obj.length > 20){
+          ShowPic(-1, tar, "用户名长度不能大于20");
+      }else if(!/^[a-zA-Z0-9_]{6,}$/.test(obj)){
+          ShowPic(-1, tar, "用户名不合法");
+      }else{
+          ShowPic(0, tar, "正在检测中...");
+          var  k  = false
+          $.ajax({
+              url: '/user/registers/ajax_validate_username',
+              data:{name:obj },
+              dataType:'json',
+              async:false,
+              success: function(data){
+                  if (data.success){
+                      $("input[id='firm_username']").nextAll().remove()
+                      $("input[id='username']").nextAll().remove()
+                      ShowPic(1, tar, "恭喜！此用户名可以使用");
+                      k = true;
+                  }else{
+                      $("input[id='firm_username']").nextAll().remove()
+                      $("input[id='username']").nextAll().remove()
+                      ShowPic(-1, tar, "此用户名已被注册");
+                  }
+              }
+          })
+          return k
+      }
+      return false
+  }
+  //验证密码
+  function validate_password() {
+      var type  = $("input[name='user_type']:checked").val()
+      var obj = type == 'firm' ? $("#firm_password").val() : $("#password").val()
+      var tar = type == 'firm' ? 'firm_pass_td' : 'user_pass_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "密码不能为空");
+      }else if(!/^[a-zA-Z0-9_]{6,}$/.test(obj)){
+          ShowPic(-1, tar, "密码不合法");
+      }else{
+          ShowPic(1, tar, "");
+          return true;
+      }
+      return false;
+  }
+  //验证确认密码
+  function validate_confirm_pw(){
+      var type  = $("input[name='user_type']:checked").val()
+      var obj = type == 'firm' ? $("#firm_password_ag").val() : $("#password_ag").val()
+      var tar = type == 'firm' ? 'firm_pass_ag_td' : 'user_pass_ag_td'
+      var pass = type == 'firm' ? $("#firm_password").val() : $("#password").val()
+
+      if (obj == "") {
+          ShowPic(-1, tar, "请填写确认密码");
+      }else if (pass != obj){
+          ShowPic(-1, tar, "密码不一致");
+      }
+      else if((!/^[a-zA-Z0-9_]{6,}$/.test(obj))){
+          ShowPic(-1, tar, "密码不正确");
+      }else{
+          ShowPic(1, tar, "密码正确");
+          return true;
+      }
+      return false;
+  }
+  function validate_email() {
+      var type  = $("input[name='user_type']:checked").val()
+      var obj = type == 'firm' ? $("#firm_email").val() : $("#email").val()
+      var tar = type == 'firm' ? 'firm_email_td' : 'user_email_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "请填写电子邮箱");
+      }else if(!/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(obj)){
+          ShowPic(-1, tar, "邮箱格式不正确");
+      }else{
+          var k = false
+          $.ajax({
+              url: '/user/registers/ajax_validate_email',
+              data:{email:obj },
+              dataType:'json',
+              async:false,
+              success: function(data){
+                  if (data.success){
+                      $("input[id='firm_email']").nextAll().remove()
+                      $("input[id='email']").nextAll().remove()
+                      ShowPic(1, tar, "此邮箱可以使用");
+                      k = true
+                  }else{
+                      $("input[id='firm_email']").nextAll().remove()
+                      $("input[id='email']").nextAll().remove()
+                      ShowPic(-1, tar, "此邮箱已使用");
+                  }
+              }
+          })
+          return k
+      }
+      return false;
+  }
+  function validate_concat(){
+      var obj = $("#firm_link_man").val()
+      var tar = 'firm_concat_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "联系人不能为空");
+      }else{
+          $("input[id='firm_link_man']").nextAll().remove()
+          ShowPic(1, tar, "联系人正确");
+          return true;
+      }
+      return false
+  }
+  function validate_mobile(){
+      var type  = $("input[name='user_type']:checked").val()
+      var obj = type == 'firm' ? $("#firm_mobile").val() : $("#mobile").val()
+      var tar = type == 'firm' ? 'firm_mobile_td' : 'user_mobile_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "手机不能为空");
+      }else if(!/^(1(([35][0-9])|(47)|[8][01236789]))\d{8}$/.test(obj)){
+          ShowPic(-1, tar, "手机格式不正确");
+      }else{
+          ShowPic(1, tar, "手机填写正确");
+          return true;
+      }
+      return false
+  }
+
+  function validate_phone(){
+      var obj = $("#firm_phone").val()
+      var tar = 'firm_phone_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "固话不能为空");
+      }else if(!/^0\d{2,3}(\-)?\d{7,8}$/.test(obj)){
+          ShowPic(-1, tar, "固话格式不正确");
+      }else{
+          ShowPic(1, tar, "固话填写正确");
+          return true;
+      }
+      return false
+  }
+  function validate_firm_name(){
+      var obj = $("#firm_name").val()
+      var tar = 'firm_name_td'
+      if (obj == "") {
+          ShowPic(-1, tar, "公司名称不能为空");
+      }else{
+          var k = false
+          $.ajax({
+              url: '/user/registers/ajax_validate_firm_name',
+              data:{name:obj },
+              dataType:'json',
+              async:false,
+              success: function(data){
+                  if (data.success){
+                      $("input[id='firm_name']").nextAll().remove()
+                      ShowPic(1, tar, "公司名称正确");
+                      k = true;
+                  }else{
+                      $("input[id='firm_name']").nextAll().remove()
+                      ShowPic(-1, tar, "此公司已经被注册！");
+                  }
+              }
+          })
+          return k
+      }
+      return false
+  }
+
+</script>

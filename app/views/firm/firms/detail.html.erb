@@ -1,0 +1,128 @@
+<style>
+  .f_detail_01{
+      width: 260px;
+      text-align: right;
+      font-size: 13px;
+      height: 36px;
+      color: #666666;
+  }
+  .f_detail_02{
+       width: 400px;
+       text-align: right;
+       font-size: 13px;
+       height: 36px;
+       color: #666666;
+   }
+  .f_detail_03{
+      width: 100px;
+      text-align: left;
+      font-size: 13px;
+      height: 36px;
+      color: #666666;
+  }
+</style>
+<div>
+  <div class="f_basic_01">
+    <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+    <span class="f_basic_title">修改公司详细信息</span>&nbsp;&nbsp;<span style="color: red;font-size: 16px">*</span>&nbsp;<span class="f_basic_title">为必填</span>
+  </div>
+  <div >
+    <%= form_tag({:action => 'detail_submit'}) do  %>
+    <table rules=rows border="1" bordercolor="#E6E6E6" >
+      <tr style="background: #FCFCFC;">
+        <td class="f_detail_01">&nbsp;&nbsp;法人代表</td>
+        <td class="f_detail_03"><%= text_field_tag 'firm_info[firm_owner]',@firm.firm_owner.present? ? @firm.firm_owner : '' %></td>
+        <td class="f_detail_02">注册资本</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_info[found_capital]',@firm.found_capital.present? ? @firm.found_capital : ''%>万（人民币）</td>
+      </tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_detail_01">&nbsp;&nbsp;成立时间</td>
+        <td class="f_detail_03">
+          <%= date_selector :name => "firm_info[found_at]",:id => "firm_info_found_at", :value => @firm.found_at.present? ? @firm.found_at.strftime('%Y-%m-%d') : nil %>
+        <td class="f_basic_02" >注册地址</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_info[found_address]',@firm.found_address.present? ? @firm.found_address : '' %></td>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_detail_01">&nbsp;&nbsp;开户银行</td>
+        <td class="f_detail_03"><%= text_field_tag 'firm_info[found_bank]',@firm.found_bank.present? ? @firm.found_bank : '' %></td>
+        <td class="f_basic_02" >账号</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_info[bank_card_id]',@firm.bank_card_id.present? ? @firm.bank_card_id : '' %></td>
+      </tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_detail_01">&nbsp;&nbsp;公司面积</td>
+        <td class="f_detail_03"><%= text_field_tag 'firm_info[firm_area]',@firm.firm_area.present? ? @firm.firm_area : '' %></td>
+        <td class="f_basic_02" >员工人数</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_info[firm_staff]',@firm.firm_staff.present? ? @firm.firm_staff : '' %></td>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_detail_01">&nbsp;&nbsp;研发机构人数</td>
+        <td class="f_detail_03"><%= text_field_tag 'firm_info[tech_staff]',@firm.tech_staff.present? ? @firm.tech_staff : '' %></td>
+        <td class="f_basic_02" >品牌</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_info[brand]',@firm.brand.present? ? @firm.brand : '' %></td>
+      </tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_detail_01">&nbsp;&nbsp;年营业额</td>
+        <td class="f_detail_03"><%= text_field_tag 'firm_info[turnover]',@firm.turnover.present? ? @firm.turnover : '' %></td>
+        <td class="f_basic_02" ></td>
+        <td class="f_basic_03"></td>
+      </tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_detail_01">&nbsp;&nbsp;管理体系认证</td>
+        <td class="f_detail_03" colspan="3">
+          <% centify = [] %>
+          <% if  @firm.centify.present?%>
+              <% centify = @firm.centify.split(',') %>
+          <% end %>
+          <% get_sys_code_option('CORP_CENTIFY').each_with_index do |t,i| %>
+              <%= check_box_tag "centify[#{i}]",t[1],centify.include?(t[1]) ? true : false %><span><%= t[0] %></span>&nbsp;&nbsp;
+          <% end %>
+        </td>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_detail_01">&nbsp;&nbsp;质量控制</td>
+        <td class="f_detail_03" colspan="3">
+          <% get_sys_code_option('QUAL_CONTROL').each do |t| %>
+              <%= radio_button_tag "firm_info[quality_control]",t[1],@firm.quality_control==t[1] ? true : false  %><span><%= t[0] %></span>&nbsp;&nbsp;
+          <% end %>
+        </td>
+      </tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_detail_01">&nbsp;&nbsp;主要市场</td>
+        <td class="f_detail_03" colspan="3">
+          <% main_market = [] %>
+          <% if  @firm.main_market.present?%>
+              <% main_market = @firm.main_market.split(',') %>
+          <% end %>
+          <% get_sys_code_option('MASTER_MARKET').each_with_index do |t,i| %>
+              <%= check_box_tag "main_market[#{i}]",t[1],main_market.include?(t[1]) ? true : false %><span><%= t[0] %></span>&nbsp;&nbsp;
+          <% end %>
+        </td>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_detail_01">&nbsp;&nbsp;主要客户</td>
+        <td class="f_detail_03" colspan="3">
+              <%= text_area_tag 'firm_info[main_customer]',@firm.main_customer.present? ? @firm.main_customer : '' ,size: "80x5" %>
+        </td>
+      </tr>
+      <tr style="background: #F8F8F8;">
+        <td class="f_detail_01">&nbsp;&nbsp;OEM认证</td>
+        <td class="f_detail_03" colspan="3">
+          <% get_sys_code_option('OEM_CENTIFY').each do |t| %>
+              <%= radio_button_tag "firm_info[OEM_centify]",t[1],@firm.OEM_centify==t[1] ? true : false %><span><%= t[0] %></span>&nbsp;&nbsp;
+          <% end %>
+        </td>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_detail_01"></td>
+        <td class="f_detail_03" colspan="3">
+          <%= submit_tag '确认' %>
+        </td></tr>
+    </table>
+    <% end %>
+  </div>
+</div>
+</div>
+
+<script>
+
+</script>

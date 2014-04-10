@@ -1,0 +1,13 @@
+<div class="f_basic_01">
+  <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+  <span class="f_basic_title">修改公司描述信息</span>
+</div>
+<%= form_tag({:action => 'desc_submit'}) do %>
+    <div style="color: #BA4E07;font-size: 16px;font-weight: bold;margin-top: 10px">公司简介</div>
+<div style="padding-left: 50px;padding-top: 10px">
+  <%= text_area_tag 'firm_info[desc]',@firm.present? ? @firm.desc : '',size: "140x20"%>
+</div>
+    <div style="text-align: center;border-bottom: 1px solid #E6E6E6;padding-bottom: 10px">
+      <%= submit_tag '确认'%>
+    </div>
+<% end %>

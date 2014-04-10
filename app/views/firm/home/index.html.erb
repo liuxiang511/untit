@@ -1,0 +1,95 @@
+<style>
+  .home_right_02{
+      line-height: 40px;
+      height: 30px;
+      color: #FF5A00;
+      font-size: 14px;
+      font-weight: bold;
+      border-bottom: 1px solid #FF5A00
+  }
+  .home_right_01{
+      line-height: 40px;
+      height: 30px;
+      color: #FF5A00;
+      font-size: 14px;
+      font-weight: bold;
+      border-bottom: 1px solid #FF5A00
+  }
+  .home_right_03{
+      background-color: #FAF8F9;
+      margin-top: 8px;
+      margin-left: 8px;
+      float: left
+  }
+  .khly form table tr td {
+      text-align: left;
+      font-size: 13px;
+      color: #505050
+  }
+  .lxfs form {
+      background-color: #FAF8F9;
+  }
+  .lxfs form table {
+      font-size: 14px;
+      color: #505050;
+      line-height: 20px;
+  }
+  .lxfs form table tr td {
+      text-align: left;
+  }
+</style>
+<div class="gsjj">
+  <div class="home_right_01">
+    <%= image_tag '/images/firm/tit_4.gif' %><span style="margin-left: 10px">公司简介</span>
+  </div>
+  <div>
+    <div class="home_right_03">
+      <%= image_tag  @photo.present? ? "/images/user_photo/#{@photo.photo_path}" : '',:id => 'preview',:style => "width: 250px;height: 188px;border: 1px solid #8FBED1"%>
+    </div>
+    <div style="float: right;width: 514px;font-size: 14px;color: #505050;"><span><%= @firm.desc.present? ? @firm.desc : "<a>查看详情</a>" %></span></div>
+    <div style="clear: both"></div>
+  </div>
+</div>
+<div class="cpzs">
+  <div class="home_right_02">
+    <div style="float: left"><%= image_tag '/images/firm/tit_4.gif' %><span style="margin-left: 10px">产品展示</span></div>
+    <div style="float: right">&gt;&gt;<%=link_to '更多'  %></div>
+    <div style="clear: both"></div>
+  </div>
+</div>
+<div class="khly" style="display: none">
+  <div class="home_right_02">
+    <div><%= image_tag '/images/firm/tit_4.gif' %><span style="margin-left: 10px">在线留言</span></div>
+  </div>
+  <%= form_tag({:action => 'message'}) do %>
+    <table style="margin-left: 100px;margin-top: 20px;width: 674px">
+      <tr><td style="font-size: 12px;color: #505050;width: 80px">标题</td><td><%= text_field_tag 'message[title]' %></td></tr>
+      <tr><td>联系人</td><td><%= text_field_tag 'message[concat]' %></td></tr>
+      <tr><td>固话</td><td><%= text_field_tag 'message[phone]' %></td></tr>
+      <tr><td>手机</td><td><%= text_field_tag 'message[mobile]' %></td></tr>
+      <tr><td>通信地址</td><td><%= text_field_tag 'message[address]' %></td></tr>
+      <tr><td>邮政编码</td><td><%= text_field_tag 'message[post_code]' %></td></tr>
+      <tr><td>电子邮箱</td><td><%= text_field_tag 'message[email]' %></td></tr>
+      <tr><td >留言内容</td><td></td></tr>
+      <tr><td colspan="2"><%= text_area_tag 'message[content]','',size: "80x5" %></td></tr>
+      <tr><td colspan="2"><%= submit_tag '提交留言' %></td></tr>
+    </table>
+  <% end %>
+</div>
+<div class="lxfs" style="display: none">
+  <div class="home_right_02">
+    <div><%= image_tag '/images/firm/tit_4.gif' %><span style="margin-left: 10px">联系方式</span></div>
+  </div>
+  <%= form_tag() do %>
+      <table style="margin:30px;">
+        <tr><td  style="text-align: left"><span style="color: #5B6A92;font-size: 18px"><%= @firm.firm_name %></span></td></tr>
+        <tr><td>联系人：<%= @concat.name %></td></tr>
+        <tr><td>电话：<%= @concat.phone %></td></tr>
+        <tr><td>传真：<%= @concat.fax %></td></tr>
+        <tr><td>手机：<%= @concat.mobile %></td></tr>
+        <tr><td>电子邮箱：<%= @concat.email %></td></tr>
+        <tr><td>公司网址：</td></tr>
+        <tr><td>邮政编码：<%= @concat.post_code %></td></tr>
+      </table>
+  <% end %>
+</div>

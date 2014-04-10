@@ -1,0 +1,113 @@
+<div>
+  <div class="f_basic_01">
+    <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+    <span class="f_basic_title">自定义分类</span>
+  </div>
+</div>
+<div style="background: url('/images/firm/f_09.jpg') repeat-x;height: 35px;line-height: 35px">
+  <span style="color: #E67200;margin-left: 30px">提示信息：</span><span>您可将供应信息按产品特性进行自定义分类，并将其展现在企业网站上，让买家在浏览您的企业网站时，更快捷的浏览信息！</span>
+</div>
+<div style=" margin-left: 50px;margin-top: 20px;margin-bottom: 10px">
+
+ <span style="color:#E67200 ">添加分类</span>
+ <%= text_field_tag 'category','',:placeholder => '  请输入分类名称',:style => "height:25px;font-size:15px" %>
+ <%= button_to_function '添加',"category_add()" %>
+
+</div>
+<div style="background: url('/images/firm/f_09.jpg') repeat-x;height: 35px;line-height: 35px">
+  <span style="margin-left: 30px">产品分类列表</span></div>
+<div>
+  <table id="cate_table" style="width: 700px;margin-left: 30px;font-size: 14px">
+    <% if @firm_category.present? %>
+        <% @firm_category.each do |t| %>
+            <tr>
+              <td style="width: 100px;text-align: left"><%= link_to_function image_tag('/images/firm/padd_tag.jpg'),"padding_next(this)" %><%= t.name %></td>
+              <td style="text-align: right"><%= hidden_field_tag 'cate_id',t.id %><%= link_to_function image_tag('/images/firm/cate_add.gif'),"to_add(this)" -%>
+                <%= link_to_function image_tag('/images/firm/cate_modify.gif'),"to_modify(this,'#{t.name}',1)" -%>
+                <%= link_to_function image_tag('/images/firm/cate_delete.gif'),"to_delete(this)" -%></td></tr>
+        <% end %>
+    <% end %>
+
+  </table>
+</div>
+<script type="text/javascript">
+  function category_add(){
+      var cate = $("#category").val()
+      $.getJSON('/firm/products/category_add?parent_id = 0&category='+cate,function(data){
+          if(data.success){
+              $("#cate_table").append("<tr><td style='text-align: left'><a onclick='padding_next(this)+'><img src='/images/firm/padd_tag.jpg'></a>"+cate+"</td>"+
+                      "<td style='text-align: right'><input type='hidden' value='"+data.cate_id+"'><a onclick = 'to_add(this)'><img src='/images/firm/cate_add.gif'></a>"+
+                      "<a onclick = 'to_modify(this,'"+cate+"',1)'><img src='/images/firm/cate_modify.gif'></a>"+
+                      "<a onclick = 'to_delete(this)'><img src='/images/firm/cate_delete.gif'></a></td></tr>")
+          }
+      })
+  }
+  function to_add(obj){
+      $(obj).parents('tr').after("<tr><td><input type='text'></td><td><a onclick = 'to_add_next(this)'><img src='/images/firm/cate_to_add.gif'></a>"+
+              "<a onclick = 'to_cancle_for_add(this)'><img src='/images/firm/cate_cancle.gif'></a><td></tr>")
+  }
+  function to_cancle_for_add(obj){
+      $(obj).parents('tr').detach()
+  }
+  function padding_next(obj){
+      var id = $(obj).parents('td').next().find('input').val()
+      $.getJSON('/firm/products/category_next?parent_id='+id,function(data){
+          if(data.success){
+              var source = $.parseJSON(data.source)
+              for(var i = 0;i<source.length;i++){
+                   $(obj).parents('tr').after("<tr><td style='text-align: left'><span style='padding-left: 15px'>"+source[i].name+"</span></td>"+
+                      "<td style='text-align: right'><input type='hidden' value='"+source[i].id+"'>"+
+                      "<a onclick = 'to_modify(this,"+source[i].name+",2)'><img src='/images/firm/cate_modify.gif'></a>"+
+                      "<a onclick = 'to_delete(this)'><img src='/images/firm/cate_delete.gif'></a></td></tr>")
+
+              }
+
+//              $(obj).parents('tr').detach()
+          }
+      })
+  }
+  function to_modify(obj,name,type){
+     $(obj).parents('td').prev().empty()
+      $(obj).parents('td').prev().append("<input type='text' value='"+name+"'><a onclick = 'to_add_next(this)'><img src='/images/firm/cate_to_add.gif'></a>"+
+              "<a onclick = 'to_cancle(this,"+type+")'><img src='/images/firm/cate_cancle.gif'></a>")
+  }
+  function to_delete(obj){
+      if (confirm("确定要删除！")){
+          var cate_id = $(obj).parents('td').find('input').val()
+          $.getJSON('/firm/products/category_delete?id='+cate_id,function(data){
+              if(data.success){
+                  $(obj).parents('tr').detach()
+              }
+          })
+      }
+  }
+  function to_add_next(obj){
+      var name = $(obj).parents('tr').find('input').val()
+      if (name == ''){
+          alert("请填写分类")
+          return false
+      }
+      var parent_id =  $(obj).parents('tr').prev().find('input').val()
+      $.getJSON('/firm/products/category_add?parent_id='+parent_id+'&category='+name,function(data){
+          if(data.success){
+              $(obj).parents('tr').after("<tr><td style='text-align: left'><span style='padding-left: 15px'>"+name+"</span></td>"+
+                      "<td style='text-align: right'><input type='hidden' value='"+data.cate_id+"'>"+
+                      "<a onclick = 'to_modify(this,"+name+")'><img src='/images/firm/cate_modify.gif'></a>"+
+                      "<a onclick = 'to_delete(this)'><img src='/images/firm/cate_delete.gif'></a></td></tr>")
+              $(obj).parents('tr').detach()
+          }
+      })
+  }
+  function to_cancle(obj,type){
+     var name = $(obj).parents('td').find('input').val()
+      var s = $(obj).parents('td')
+      $(obj).parents('td').empty()
+      if(type == 1){
+          s.append("<a onclick='padding_next(this)'><img src='/images/firm/padd_tag.jpg'></a><span>"+name+"</span>")
+      }else{
+          s.append("<span style='padding-left: 15px'>"+name+"</span>")
+      }
+
+
+  }
+</script>

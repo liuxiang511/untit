@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>农业交易</title>
+  <%= javascript_include_tag  '/javascript/application' %>
+  <%= javascript_include_tag '/javascript/jquery-1.10.1' %>
+  <%= javascript_include_tag '/javascript/jquery-1.10.1.min' %>
+  <script charset="utf-8" src="/editor/kindeditor.js"></script>
+  <script charset="utf-8" src="/editor/lang/zh_CN.js"></script>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+<style>
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+        vertical-align: middle;
+        background-color: #FCFCFC;
+    }
+    .f_basic_01{
+        height: 39px;
+        background: url("/images/firm/f_06.jpg") repeat-x;
+    }
+    .f_basic_title{
+        font-size: 16px;
+        font-weight: bold;
+        color: #545454;
+        padding-top: 5px;
+    }
+    .f_basic_02{
+        width: 130px;
+        text-align: right;
+        font-size: 13px;
+        height: 36px;
+        color: #666666;
+    }
+    .f_basic_03{
+        text-align: left;
+        width: 1030px
+    }
+    .file{
+        align-items: baseline;
+        color: inherit;
+        text-align: start;
+    }
+</style>
+<div style="position:fixed;z-index:2008;width:100%;height:110px">
+<%= render :partial => 'share/firm_top' %>
+</div>
+<div style="width: 1365px;padding-top: 110px">
+  <div style="position:fixed;float: left;width: 205px">
+    <%= render :partial => 'share/firm_left_menu' %>
+  </div>
+
+  <div style="float: right;width: 1160px">
+    <%= yield %>
+  </div>
+
+</div>
+<div style="clear: both"></div>
+</body>
+</html>

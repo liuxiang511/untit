@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>农业交易</title>
+  <%= stylesheet_link_tag  '/stylesheet/application' %>
+  <%= javascript_include_tag '/javascript/jquery-1.10.1' %>
+  <%= javascript_include_tag '/javascript/jquery-1.10.1.min' %>
+  <%= javascript_include_tag '/javascript/unslider.min' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<style>
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+        vertical-align: middle;
+        background-color: #FCFCFC;
+    }
+    .m_top_1{
+        width: 950px;
+        padding-left: 200px
+    }
+</style>
+<%= render :partial => 'share/main_top' %>
+<div class="m_top_1">
+    <%= render :partial => 'share/main_top_2' %>
+    <%= yield %>
+</div>
+<%= render :partial => 'share/float' %>
+
+
+<div>
+  <p class="notice"><%=notice%></p>
+  <p class="alert"><%=alert%></p>
+</div>
+<%= render :partial => 'share/main_foot' %>
+
+</body>
+</html>

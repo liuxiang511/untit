@@ -1,0 +1,66 @@
+<style>
+  .new_honor{
+      text-decoration: none;
+      font-size: 14px;
+      color: #B9650B;
+  }
+  .new_honor:hover{
+      text-decoration: underline;
+      vertical-align: middle;
+      line-height: 39px;
+  }
+</style>
+<div>
+  <div class="f_basic_01">
+    <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+    <span class="f_basic_title">管理荣誉</span>&nbsp;&nbsp;
+    <img src="/images/firm/rz.gif" style="margin-left:900px">
+    <%= link_to_function '新增荣誉','new_honor()',:class => "new_honor" %>
+  </div>
+  <div>
+    <table rules=rows border="1" bordercolor="#E6E6E6" style="font-size: 13px;width: 1160px">
+      <tr style="background: url('/images/firm/f_09.jpg') repeat-x;height: 35px;font-weight: bold;color: #545454">
+        <td style="text-align: center;width: 180px">图片</td>
+        <td style="width: 260px">证书名称</td>
+        <td style="width: 300px">发证机构</td>
+        <td>年份</td>
+        <td>审核状态</td>
+        <td>操作</td></tr>
+    </table>
+  </div>
+  <div id="new_honor" style="display: none;padding-top: 20px">
+    <table rules=rows border="1" bordercolor="#E6E6E6" >
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;荣誉</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_name','' ,:style=>"width:260px"%></td></tr>
+      <tr style="background: #F8F8F8">
+        <td class="f_basic_02" style="vertical-align: top;">图片</td>
+        <td class="f_basic_03"><div style="width: 100px;height: 110px;border: 1px solid #8FBED1"></div>
+          <div style="border: 1px solid #CCCCCC;width: 240px;"><input type="file" name="filepic" id="filepic" class="file"></div>
+      </tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;发证机构</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_name','',:style=>"width:260px"%></td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;年份</td>
+        <td class="f_basic_03"><%= text_field_tag 'firm_name',''%></td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"><span style="color: red">*</span>&nbsp;&nbsp;描述</td>
+        <td class="f_basic_03">
+          <%= text_area_tag 'firm_info[main_product]','',size: "55x5"%>
+        </td></tr>
+      <tr style="background: #FCFCFC;">
+        <td class="f_basic_02"></td>
+        <td class="f_basic_03">
+          <%= button_to_function '确认','' %>
+        </td></tr>
+    </table>
+  </div>
+</div>
+</div>
+
+<script>
+   function new_honor(){
+       $("#new_honor").show()
+   }
+</script>

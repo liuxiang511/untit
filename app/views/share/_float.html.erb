@@ -1,0 +1,38 @@
+
+<%= javascript_include_tag '/javascript/jquery.bxSlider.min' %>
+<%= stylesheet_link_tag '/stylesheet/lanrenzhijia' %>
+<div></div>
+<div class="serviceleft">
+  <div class="si_serviceleft">
+    <div class="si_serviceleft2" style="display: block;">
+      <ul>
+        <li class="si_serviceleftLI1" style=""><a target="_blank" href="tencent://message/?uin=928716780&site=qq&menu=yes">QQ咨询</a></li>
+        <li class="si_serviceleftLI2" style=""><a target="_blank" href="#">官方微博</a>
+          <div style="display: none;"><img src="/images/wb2wm.png"></div>
+        </li>
+        <li class="si_serviceleftLast" style=""><a target="_blank" href="#">官方微信</a>
+          <div style="display: none;"><img src="/images/wx2wm.png"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+    $(function(){
+        $(".si_serviceleftLast").hover(function(){
+            $(".si_serviceleftLast div").fadeIn(0);
+        },function(){
+            $(".si_serviceleftLast div").fadeOut(0);
+        })
+        $(".si_serviceleftLI2").hover(function(){
+            $(".si_serviceleftLI2 div").fadeIn(0);
+        },function(){
+            $(".si_serviceleftLI2 div").fadeOut(0);
+        })
+        $(".si_serviceleft2 ul li").hover(function(){
+            $(this).css('background-color','#d93d69');
+        },function(){
+            $(this).css('background-color','');
+        })
+    })
+</script>

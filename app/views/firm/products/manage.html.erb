@@ -1,0 +1,57 @@
+<div>
+  <div class="f_basic_01">
+    <img src="/images/firm/ico9.gif" style="padding-left: 8px;padding-top: 8px">
+    <span class="f_basic_title">产品管理</span>
+  </div>
+</div>
+<div style="background: url('/images/firm/f_09.jpg') repeat-x;height: 35px;line-height: 35px">
+  <span style="color: #E67200;margin-left: 30px">提示信息：</span><span>应国家网络监察机关的要求，也为了更好地保障您的利益，请勿发布不符合规范、敏感的信息和图片，如有发现会立即删除账号和信息，不会另行提示或通知，生意地感谢您的配合！</span>
+</div>
+<div>
+  <%= form_tag({}) do %>
+  <table>
+    <tr><td>自定义分类</td>
+      <td><%= select_tag 'firm_category_id', options_for_select(([['请选择', '']] + get_firm_category())),:style=> "width:150px" %></td>
+    <td>标题</td><td><%= text_field_tag 'title',params[:title].present? ? params[:title] : '' %></td>
+    <td>状态</td><td><%= select_tag 'status', options_for_select(([['请选择', '']] + get_sys_code_option('PRO_STATUS'))),:style=> "width:150px" %></td>
+    <td>每页条数</td><td><%= select_tag 'par',options_for_select(([['20',20]]+[['40',40]])) %></td>
+    <td><%= submit_tag '搜索' %></td></tr>
+  </table>
+      <% end  %>
+</div>
+<div>
+  <table>
+    <tr><td>自定义分类</td><td>标题</td><td>状态</td><td>更新时间</td><td>操作</td></tr>
+    <% if @product.present? %>
+        <% @product.each do |t|%>
+        <tr>
+          <td><%= t.firm_category_id.present? ? t.firm_category.name : '未分类' %></td>
+          <td><%= t.title %></td>
+          <td><%= get_sys_code_value('PRO_STATUS',"#{t.status}") %></td>
+          <td><%= t.updated_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <td><%= link_to_function '修改',"pro_to_modify(#{t.id})" %>
+            <%= link_to_function '删除',"pro_to_destroy(#{t.id},this)" %></td>
+        </tr>
+        <% end %>
+    <% end %>
+    <tr>
+      <td></td>
+    </tr>
+  </table>
+</div>
+<script>
+    function pro_to_modify(product_id){
+        window.location = '/firm/products/publish/'+product_id
+
+    }
+    function pro_to_destroy(product_id,obj){
+        if (confirm("确定要删除？")){
+            $.getJSON('/firm/products/pro_to_destroy/'+product_id,function(data){
+                if (data.success){
+                    alert("已删除")
+                    $(obj).parents('tr').remove()
+                }
+            })
+        }
+    }
+</script>

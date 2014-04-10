@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1607381577">
+    <data-source source="LOCAL" name="Rails untit: development" uuid="5be243b7-2e5f-4526-b49b-c4a7f0a53579">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1/unite</jdbc-url>
+      <user-name>mobileshall</user-name>
+      <user-password>dfc7dfc5dfc8dfc3dfc6dfcfdfd9dfc2dfcbdfc6dfc6</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails untit: test" uuid="fcb6f30e-d347-482d-b7e1-9423a09358c7">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1/untit_test</jdbc-url>
+      <user-name>root</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails untit: production" uuid="4e30210d-f272-4e9f-825f-0f551d2acb20">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1/untit_production</jdbc-url>
+      <user-name>root</user-name>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

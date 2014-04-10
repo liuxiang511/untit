@@ -1,0 +1,119 @@
+<style>
+  .home_02{
+      background-image: url("/images/firm/banner.gif");
+      height: 166px;
+      color: #F95201;
+      font-size: 30px;
+
+  }
+  .home_02 span{
+      padding-left: 200px;
+      line-height: 100px;
+  }
+  .home_01{
+      height: 25px;
+      background-color: #F2F2F2;
+      line-height: 25px
+  }
+  .home_03{
+      background: url("/images/firm/nav_bj.gif") repeat-x;
+      height: 34px;
+      margin-top: 2px;
+      font-size: 14px;
+      color: #ffffff;
+  }
+  .home_03 div{
+      float: left;
+      /**/
+      width: 84px;
+      height: 34px;
+      line-height: 34px;
+
+
+  }
+  .home_03 ul{
+      padding-left: 200px;
+  }
+        .home_03 ul li{
+            float: left;
+            list-style: none;
+
+        }
+        .home_03 ul li a{
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 15px;
+            text-decoration: none;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+  .divcss5-4{
+      border-bottom:1px dashed #CCCCCC;
+      width:100%;
+      margin-bottom: 8px;
+  }
+</style>
+<div class="home_01">设为首页</div>
+<div class="home_02">
+<span><%= @firm.firm_name %></span>
+</div>
+<div class="home_03">
+  <ul style="margin: 0 ">
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+    <li style="line-height: 34px;background: url('/images/firm/nav_bj_2.gif') no-repeat;">
+      <%= link_to_function '公司首页',"menu_change(this,'1')" %></li>
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+    <li style="line-height: 34px"><%= link_to_function '公司简介',"menu_change(this,'2')" %></li>
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+    <li style="line-height: 34px"><%= link_to_function '产品展示',"menu_change(this,'3')" %></li>
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+    <li style="line-height: 34px"><%= link_to_function '资质认证',"menu_change(this,'4')" %></li>
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+    <li style="line-height: 34px"><%= link_to_function '联系方式',"menu_change(this,'5')" %></li>
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+    <li style="line-height: 34px"><%= link_to_function '在线留言',"menu_change(this,'6')" %></li>
+    <li><img src="/images/firm/nav_bj_1.gif"></li>
+  </ul>
+</div>
+<div style="clear: both"></div>
+<div style="font-weight: bold; font-size: 13px;margin: 8px"><span> 您当前位置</span>
+
+</div>
+<div class="divcss5-4"></div>
+<script style="text/javascript">
+  function menu_change(obj,link){
+      $(".home_03 ul li").css("background","")
+      $(obj).parent().css("background","url('/images/firm/nav_bj_2.gif') no-repeat")
+
+      if (link == '2'){
+          $(".khly").hide()
+          $(".gsjj").show()
+          $(".lxfs").hide()
+          $(".cpzs").hide()
+      }
+      if (link == '3'){
+          $(".khly").hide()
+          $(".gsjj").hide()
+          $(".lxfs").hide()
+          $(".cpzs").show()
+      }
+      if (link == '1'){
+          $(".khly").hide()
+          $(".gsjj").show()
+          $(".lxfs").hide()
+          $(".cpzs").show()
+      }
+      if (link == '6'){
+          $(".cpzs").hide()
+          $(".gsjj").hide()
+          $(".lxfs").hide()
+          $(".khly").show()
+      }
+      if(link == '5'){
+          $(".cpzs").hide()
+          $(".gsjj").hide()
+          $(".khly").hide()
+          $(".lxfs").show()
+      }
+  }
+</script>
